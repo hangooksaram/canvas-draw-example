@@ -4,17 +4,17 @@ const createCanvasElement = () => {
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  return ctx;
+  return { canvas, ctx };
 };
 
 const canvasToImage = () => {
   const canvas = document.getElementById("canvas");
   const imgBase64 = canvas.toDataURL("image/jpeg", "image/octet-stream");
-  const decodImg = atob(imgBase64.split(",")[1]);
+  const decodeImg = atob(imgBase64.split(",")[1]);
 
   const array = [];
-  for (let i = 0; i < decodImg.length; i += 1) {
-    array.push(decodImg.charCodeAt(i));
+  for (let i = 0; i < decodeImg.length; i += 1) {
+    array.push(decodeImg.charCodeAt(i));
   }
 
   const file = new Blob([new Uint8Array(array)], { type: "image/jpeg" });
